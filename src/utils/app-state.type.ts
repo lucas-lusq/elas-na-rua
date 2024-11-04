@@ -7,7 +7,12 @@ export type ReportedItem = {
 };
 
 export type IncidentType = {
-  name: "assedio" | "rua-perigosa" | "iluminacao";
+  name:
+    | "assedio"
+    | "rua-deserta"
+    | "iluminacao"
+    | "grupos-suspeitos"
+    | "espaco-abandonado-ou-degradado";
   iconName: string;
   description: string;
 };

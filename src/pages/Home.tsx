@@ -12,7 +12,7 @@ export default function Home({ goToPage }: HomeProps) {
         <div className="mx-auto max-w-2xl lg:mx-0">
           <p className=" text-lg font-semibold text-indigo-600">Bem vinda</p>
           <h2 className="mt-2 text-5xl font-semibold tracking-tight text-gray-900 sm:text-7xl">
-            novo evento
+            registrar novo evento
           </h2>
           <button
             type="button"

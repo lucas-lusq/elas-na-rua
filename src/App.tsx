@@ -44,6 +44,7 @@ function App() {
         isLoading={!userCords}
         appState={appState}
         setAppState={setAppState}
+        goToPage={setCurrentPage}
       />
     );
 }

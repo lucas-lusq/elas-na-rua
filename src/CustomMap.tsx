@@ -13,10 +13,7 @@ import {
   SwipeableDrawer,
   Typography,
 } from "@mui/material";
-import Icon from "@mui/material/Icon";
-import WarningPickIncidentLocation from "./components/WarningPickIncidentLocation ";
-import { AppState, IncidentType } from "./utils/app-state.type";
-import ComboboxSearchMaps from "./components/ComboboxSearchMaps";
+import { AppState, IncidentType, PageState } from "./utils/app-state.type";
 import { useLoadScript } from "@react-google-maps/api";
 
 const incidentOptions: IncidentType[] = [
@@ -31,9 +28,19 @@ const incidentOptions: IncidentType[] = [
     name: "iluminacao",
   },
   {
-    description: "Cheio de cracudo",
+    description: "Rua deserta",
     iconName: "warning",
-    name: "rua-perigosa",
+    name: "rua-deserta",
+  },
+  {
+    description: "Grupos suspeitos",
+    iconName: "warning",
+    name: "grupos-suspeitos",
+  },
+  {
+    description: "Espaço abandonado ou degradado",
+    iconName: "warning",
+    name: "espaco-abandonado-ou-degradado",
   },
 ];
 
@@ -48,6 +55,7 @@ type CustomMapProps = {
   isLoading: boolean;
   appState: AppState;
   setAppState: React.Dispatch<React.SetStateAction<AppState>>;
+  goToPage: (page: PageState) => void;
 };
 
 function CustomMap({
@@ -56,6 +64,7 @@ function CustomMap({
   isGeoLocationAvailable,
   appState,
   setAppState,
+  goToPage,
 }: CustomMapProps) {
   const mapsKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
   const { isLoaded } = useLoadScript({
@@ -89,8 +98,12 @@ function CustomMap({
         onLoad={() => console.log("Maps API has loaded.")}
         libraries={["places"]}
       >
-        <WarningPickIncidentLocation />
-        <ComboboxSearchMaps currentUserPosition={currentUserPosition} />
+        <button
+          className="fixed top-4 left-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 z-50"
+          onClick={() => goToPage("incident-moment-stage")}
+        >
+          ←
+        </button>
         <Map
           defaultZoom={17}
           mapTypeControl={false}
@@ -174,7 +187,7 @@ function CustomMap({
                   });
                 }}
               >
-                <Icon>{iconName}</Icon>
+                {/* <Icon>{iconName}</Icon> */}
                 <ListItemText primary={description} />
               </ListItemButton>
             </ListItem>
