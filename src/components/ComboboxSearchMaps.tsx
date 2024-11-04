@@ -52,7 +52,8 @@ export default function ComboboxSearchMaps({
               region: "br",
             });
           }}
-          displayValue={(place) => place?.description}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          displayValue={(place: any) => place?.description}
         />
         <ComboboxButton className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
           <ChevronUpDownIcon
