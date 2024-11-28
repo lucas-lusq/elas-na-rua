@@ -1,6 +1,6 @@
 import { useGeolocated } from "react-geolocated";
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomMap from "./CustomMap";
 import { AppState, Coordinates, PageState } from "./utils/app-state.type";
 import Home from "./pages/Home";
@@ -24,10 +24,28 @@ function App() {
     incidentSelectionState: "selecting-incident",
   });
   const [userLocation, setUserLocation] = useState<Coordinates | undefined>(
-    userCords
-      ? { lat: userCords?.latitude, lng: userCords?.longitude }
-      : undefined
+    undefined
   );
+
+  useEffect(() => {
+    console.log("aqui332");
+    if (userCords && userLocation === undefined) {
+      setUserLocation({ lat: userCords?.latitude, lng: userCords?.longitude });
+    }
+  }, [userCords, userLocation]);
+
+  useEffect(() => {
+    console.log("aqui222");
+    if (
+      currentPage === "incident-moment-stage" &&
+      userLocation != undefined &&
+      userCords &&
+      JSON.stringify(userLocation) !=
+        JSON.stringify({ lat: userCords.latitude, lng: userCords.longitude })
+    ) {
+      setUserLocation({ lat: userCords.latitude, lng: userCords.longitude });
+    }
+  }, [currentPage, userCords, userLocation]);
 
   if (currentPage === "home-stage") {
     return <Home goToPage={setCurrentPage} />;
