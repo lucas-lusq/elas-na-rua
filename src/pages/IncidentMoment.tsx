@@ -41,7 +41,7 @@ export default function IncidentMoment({ goToPage }: IncidentMomentProps) {
 
           <div
             className="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 mt-12"
-            onClick={() => goToPage("incident-picking")}
+            onClick={() => goToPage("search-incident-location")}
           >
             <div className="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
               <div className="ml-4 mt-4 flex flex-justify-between">

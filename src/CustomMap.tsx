@@ -13,7 +13,12 @@ import {
   SwipeableDrawer,
   Typography,
 } from "@mui/material";
-import { AppState, IncidentType, PageState } from "./utils/app-state.type";
+import {
+  AppState,
+  Coordinates,
+  IncidentType,
+  PageState,
+} from "./utils/app-state.type";
 import { useLoadScript } from "@react-google-maps/api";
 
 const incidentOptions: IncidentType[] = [
@@ -47,10 +52,7 @@ const incidentOptions: IncidentType[] = [
 const drawerBleeding = 56;
 
 type CustomMapProps = {
-  currentUserPosition: {
-    lat: number;
-    lng: number;
-  };
+  currentUserPosition: Coordinates;
   isGeoLocationAvailable: boolean;
   isLoading: boolean;
   appState: AppState;
@@ -136,7 +138,6 @@ function CustomMap({
             })}
         </Map>
       </APIProvider>
-
       <SwipeableDrawer
         anchor="bottom"
         open={isDrawerVisible}

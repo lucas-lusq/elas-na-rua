@@ -2,9 +2,10 @@ import { useGeolocated } from "react-geolocated";
 import "./App.css";
 import { useState } from "react";
 import CustomMap from "./CustomMap";
-import { AppState, PageState } from "./utils/app-state.type";
+import { AppState, Coordinates, PageState } from "./utils/app-state.type";
 import Home from "./pages/Home";
 import IncidentMoment from "./pages/IncidentMoment";
+import SearchForLocation from "./pages/SearchForLocation";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<PageState>("home-stage");
@@ -22,11 +23,11 @@ function App() {
     reportedItems: [],
     incidentSelectionState: "selecting-incident",
   });
-
-  const currentUserPosition = {
-    lat: userCords?.latitude ?? 0,
-    lng: userCords?.longitude ?? 0,
-  };
+  const [userLocation, setUserLocation] = useState<Coordinates | undefined>(
+    userCords
+      ? { lat: userCords?.latitude, lng: userCords?.longitude }
+      : undefined
+  );
 
   if (currentPage === "home-stage") {
     return <Home goToPage={setCurrentPage} />;
@@ -36,15 +37,23 @@ function App() {
     return <IncidentMoment goToPage={setCurrentPage} />;
   }
 
-  if (currentPage === "incident-picking")
+  if (currentPage === "incident-picking" && userLocation)
     return (
       <CustomMap
-        currentUserPosition={currentUserPosition}
+        currentUserPosition={userLocation}
         isGeoLocationAvailable={isGeolocationEnabled && isGeolocationAvailable}
         isLoading={!userCords}
         appState={appState}
         setAppState={setAppState}
         goToPage={setCurrentPage}
+      />
+    );
+
+  if (currentPage === "search-incident-location")
+    return (
+      <SearchForLocation
+        goToPage={setCurrentPage}
+        setUserLocation={setUserLocation}
       />
     );
 }

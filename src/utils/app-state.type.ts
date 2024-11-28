@@ -1,9 +1,11 @@
 export type ReportedItem = {
-  coordinate: {
-    lat: number;
-    lng: number;
-  };
+  coordinate: Coordinates;
   incidentType?: IncidentType;
+};
+
+export type Coordinates = {
+  lat: number;
+  lng: number;
 };
 
 export type IncidentType = {
@@ -28,4 +30,5 @@ export type AppState = {
 export type PageState =
   | "home-stage"
   | "incident-moment-stage"
-  | "incident-picking";
+  | "incident-picking"
+  | "search-incident-location";
